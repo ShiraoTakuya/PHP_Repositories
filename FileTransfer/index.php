@@ -2,7 +2,7 @@
 <html lang="ja">
 	<head>
 		<meta charset="utf-8" />
-		<title>JavaScript学習</title>
+		<title>JavaScript＋PHP学習</title>
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="stylesheet" href="style.css">
 	</head>

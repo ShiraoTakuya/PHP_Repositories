@@ -14,6 +14,8 @@ function onDrop(event){
 		reader.onload = function (e) {
 			//データ読み込み
 			var data_row = e.target.result;
+
+			//データをPHPに送信
 			var xhr = new XMLHttpRequest();
 			xhr.open('POST', 'log.php');
 			xhr.setRequestHeader('Content-Type', 'application/octet-stream');
@@ -24,6 +26,7 @@ function onDrop(event){
 			disp.textContent ="送信完了";
 		}
 
+		//バイナリデータとして読み込み設定
 		reader.fileName = f[i].name;
 		reader.readAsArrayBuffer(f[i]);
 	}
@@ -32,6 +35,9 @@ function onDrop(event){
 function onDragOver(event){ 
 	event.preventDefault(); 
 }
+
+
+/* MAIN BEGIN */
 
 var hash = {};
 var arDiv = ['drop', 'disp'];
@@ -53,3 +59,4 @@ hash['drop'].addEventListener('click', function(){
 
 hash['disp'].textContent = "ドロップ待機中";
 
+/* MAIN END */
