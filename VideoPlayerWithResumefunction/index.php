@@ -26,12 +26,13 @@
 	?>
 
 	var timesend = function(){
-		var request = new XMLHttpRequest();
-		request.open('GET', './log.php?time='+String(media.currentTime), true);
-		request.send();
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', 'log.php');
+		xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+		xhr.send("<?php echo implode(",", $files) ?>");
 	} 
 	setInterval(timesend, 1000);
 </script>
 
-</body> 
+</body>
 </html>
