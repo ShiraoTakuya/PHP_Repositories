@@ -1,9 +1,5 @@
 ﻿<?php
-	if(isset($_GET['time'])){
-		$fp = fopen("data.log", "w");
-		foreach($_GET['time'] as $key => $value){
-			fputcsv($fp, array($key, $value));
-		}
-		fclose($fp);
-	}
+	$fp = fopen("data.log", "wb");									// ファイルを開く
+	fwrite($fp, file_get_contents('php://input'));	// 開いたファイルからデータを読み出す
+	fclose($fp);	
 ?>

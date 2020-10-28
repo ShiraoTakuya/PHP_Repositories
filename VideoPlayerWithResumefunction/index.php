@@ -13,23 +13,36 @@
 ?>
 
 <script>
+	var media = [];
 	<?php
-		foreach($files as $file){
-			echo 'var media = document.getElementById("'.$file.'");'."\r\n";
-			echo 'media.currentTime = ';
-			$fname = "./data.log";
-			$fp = fopen($fname, "r");							// ファイルを開く
-			$buf = fread($fp, filesize($fname));	// 開いたファイルからデータを読み出す
-			fclose($fp);													// ファイルを閉じる
-			echo $buf;
+		foreach($files as $index => $file){
+			echo 'media['.strval($index).'] = document.getElementById("'.$file.'");'."\r\n";
+			echo 'media['.strval($index).'].currentTime = ';
+			$data = file("./data.log");
+			$result = array();
+			foreach($data as $row){
+			   $params = explode(",", $row);
+			   $result[$params[0]] = $params[1];
+			}
+			echo $result[$file]."\r\n";
 		}
 	?>
 
 	var timesend = function(){
+		var ar = [];
+		for (var i = 0; i < media.length; i++){
+			ar[i] = media[i].currentTime;
+		}
 		var xhr = new XMLHttpRequest();
-		xhr.open('POST', 'log.php');
+		xhr.open('POST', './log.php');
 		xhr.setRequestHeader('Content-Type', 'application/octet-stream');
-		xhr.send("<?php echo implode(",", $files) ?>");
+		var arFiles = "<?php echo implode(",", $files) ?>".split(',')
+
+		var stData = ""
+		for(var i = 0; i < arFiles.length; i++){
+			stData += arFiles[i]+","+ar[i] + "\r\n"
+		}
+		xhr.send(stData);
 	} 
 	setInterval(timesend, 1000);
 </script>
