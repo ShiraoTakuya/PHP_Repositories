@@ -21,10 +21,14 @@
 			$data = file("./data.log");
 			$result = array();
 			foreach($data as $row){
-			   $params = explode(",", $row);
-			   $result[$params[0]] = $params[1];
+				$params = explode(",", $row);
+				$result[$params[0]] = $params[1];
 			}
-			echo $result[$file]."\r\n";
+			if (empty($result[$file])) {
+				echo "0\r\n";
+			}else{
+				echo $result[$file]."\r\n";
+			}
 		}
 	?>
 
